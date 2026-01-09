@@ -18,6 +18,7 @@ from django.urls import path
 from django.http import JsonResponse
 from django.views.defaults import page_not_found, server_error, bad_request, permission_denied
 import os
+from . import views
 
 # Custom error handlers
 def custom_404(request, exception):
@@ -66,12 +67,25 @@ def api_root(request):
         'endpoints': {
             'admin': f'{base_url}/admin/',
             'api': f'{base_url}/api/',
+            'test_errors': {
+                'validation': f'{base_url}/test/validation-error/',
+                'authentication': f'{base_url}/test/authentication-error/',
+                'permission': f'{base_url}/test/permission-error/',
+                'not_found': f'{base_url}/test/not-found-error/',
+                'server': f'{base_url}/test/server-error/',
+            }
         }
     })
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', api_root, name='api-root'),
+    # Test error endpoints
+    path('test/validation-error/', views.test_validation_error, name='test-validation-error'),
+    path('test/authentication-error/', views.test_authentication_error, name='test-authentication-error'),
+    path('test/permission-error/', views.test_permission_error, name='test-permission-error'),
+    path('test/not-found-error/', views.test_not_found_error, name='test-not-found-error'),
+    path('test/server-error/', views.test_server_error, name='test-server-error'),
 ]
 
 # Custom error handlers
