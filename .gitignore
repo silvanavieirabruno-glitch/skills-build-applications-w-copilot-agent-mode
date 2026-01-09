@@ -31,3 +31,10 @@ yarn-error.log*
 # Python files
 *.pyc
 __pycache__/
+
+# Database files
+*.sqlite3
+db.sqlite3
+
+# Test scripts
+octofit-tracker/backend/test_error_handling.py
